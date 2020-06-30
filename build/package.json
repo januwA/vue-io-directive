@@ -1,0 +1,21 @@
+{
+  "name": "vue-io-directive",
+  "version": "0.1.0",
+  "description": "在vue组件上双向绑定数据",
+  "main": "./vue-io-directive.js",
+  "types": "./io-directive.d.ts",
+  "keywords": [
+    "Ajanuw",
+    "vue",
+    "vue-io-directive",
+    "vue双向绑定",
+    "vue组件双向绑定数据"
+  ],
+  "author": "Ajanuw",
+  "license": "MIT",
+  "homepage": "https://github.com/januwA/vue-io-directive",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/januwA/vue-io-directive.git"
+  }
+}

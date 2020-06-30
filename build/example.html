@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input v-model="parentName" /> {{ parentName }}
+      <br>
+      <input v-model="parentPwd" /> {{ parentPwd }}
+      
+      <hr />
+
+      <my-test v-io:name="parentName" v-io:pwd="parentPwd"></my-test>
+    </div>
+    <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+    <script src="./vue-io-directive.js"></script>
+    <script>
+      const l = console.log;
+
+      // 定义子组件
+      Vue.component("my-test", {
+        name: "my-test",
+        data() {
+          return {
+            name: "(unknow)",
+            pwd: "(unknow)",
+          };
+        },
+        methods: {
+          nameChange(newVal, oldVal) {
+            l(newVal, this.name)
+          }
+        },
+        watch: {
+          name: function (newVal, oldVal) {
+            l(`watch name change, new value is ${newVal}`);
+          },
+        },
+        template: `
+          <div>
+            <input v-model="name" /> {{ name }}
+            <br>
+            <input :value="pwd" @input="pwd = $event.target.value" /> {{ pwd }}
+          </div>
+          `,
+      });
+
+      // 定义指令
+      Vue.directive("io", VueIoDirective);
+
+      // 根组件
+      var app = new Vue({
+        el: "#app",
+        data: {
+          parentName: '',
+          parentPwd: ''
+        },
+        watch: {
+          parentName: function (newVal, oldVal) {
+            l(`watch parentName change, new value is ${newVal}`);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
