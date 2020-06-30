@@ -1,10 +1,7 @@
 <template>
   <div>
     <input v-model="name" />
-    {{ name }}
-    <br />
-    <input v-model="pwd" />
-    {{ pwd }}
+    <input v-model="child.name" />
   </div>
 </template>
 
@@ -14,13 +11,8 @@ export default {
   data() {
     return {
       name: "(unknow)",
-      pwd: "(unknow)",
+      child: {name: ''}
     };
-  },
-  methods: {
-    nameChange(newVal, oldVal) {
-      console.log(newVal, this.name);
-    },
   },
   watch: {
     name: function (newVal, oldVal) {

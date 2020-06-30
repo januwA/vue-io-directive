@@ -1,12 +1,9 @@
 <template>
   <div>
-    <input v-model="parentName" />
-    {{ parentName }}
-    <br />
-    <input v-model="parentPwd" />
-    {{ parentPwd }}
+    <input v-model="name" />
+    <input v-model="obj['aaa-aa sdsa']" />
     <hr />
-    <myTest v-io:name="parentName" v-io:pwd="parentPwd"></myTest>
+    <myTest v-io:name="name" v-io:child.name="obj['aaa-aa sdsa']"></myTest>
   </div>
 </template>
 
@@ -17,13 +14,15 @@ export default {
   components: { myTest },
   data() {
     return {
-      parentName: "",
-      parentPwd: "",
+      name: "",
+      obj: {
+        'aaa-aa sdsa': ''
+      }
     };
   },
   watch: {
-    parentName: function (newVal, oldVal) {
-      console.log(`watch parentName change, new value is ${newVal}`);
+    name: function (newVal, oldVal) {
+      
     },
   },
 };

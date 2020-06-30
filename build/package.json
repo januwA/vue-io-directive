@@ -1,6 +1,6 @@
 {
   "name": "vue-io-directive",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "在vue组件上双向绑定数据",
   "main": "./vue-io-directive.js",
   "types": "./io-directive.d.ts",

@@ -1,42 +1,59 @@
 import { VNode } from "vue";
 import { DirectiveBinding } from "vue/types/options";
 
+function setData(key: string, newValue: string, context: unknown) {
+  return Function(`return function(d) { with(this){ ${key} = d; } }`)().call(
+    context,
+    newValue
+  );
+}
+
+function getData(bindKey: string, data: unknown) {
+  try {
+    return Function(`with(this){ return ${bindKey} }`).apply(data, arguments);
+  } catch (error) {}
+}
+
+function _getWatchInputPropKey(
+  inputPropKey: string,
+  modifiers: { [key: string]: boolean }
+) {
+  const modifiersKeys: string[] = Object.keys(modifiers);
+  return modifiersKeys.length
+    ? inputPropKey + "." + modifiersKeys.join(".")
+    : inputPropKey;
+}
+
 export const VueIoDirective = {
   inserted(el: HTMLElement, binding: DirectiveBinding, vnode: VNode) {
-    const { arg: inputPropKey, expression: inputDataKey, value } = binding;
-    if (!inputPropKey) return;
-
+    const { modifiers, arg: inputPropKey, expression: inputDataKey } = binding;
     const { context: parent, componentInstance: child } = vnode;
-
-    if (!child || !parent) return;
-
-    // child没有[inputPropKey]就不强制设置
-    if (!child.hasOwnProperty(inputPropKey)) {
-      console.error(`[v-io:${inputPropKey}] child not ${inputPropKey} data.`);
+    if (!inputPropKey) {
+      console.error(`[v-io:??=${inputDataKey}]`);
       return;
     }
-    // else {
-    // 使用immediate: true初始化
-    //  child[inputPropKey] = value;
-    // }
+    if (!child || !parent) return;
 
-    const watchFunName: string = `${inputPropKey}Change`;
-
-    // 监听parent值的变化,在设置到child
-    parent.$watch(
-      inputDataKey,
-      function (newVal, oldVal) {
-        (child as any)[inputPropKey] = newVal;
-        if (child.hasOwnProperty(watchFunName)) {
-          (child as any)[watchFunName].call(child, newVal, oldVal);
-        }
-      },
-      { immediate: true }
+    // v-io:obj.name="data"
+    const watchInputPropKey: string = _getWatchInputPropKey(
+      inputPropKey,
+      modifiers
     );
 
-    // 监听child值的变化,在设置到parent
-    child.$watch(inputPropKey, function (newVal, oldVal) {
-      (parent as any)[inputDataKey] = newVal;
+    // parent value to child value
+    parent.$watch(
+      function () {
+        return getData(inputDataKey, this);
+      },
+      function (newVal) {
+        setData(watchInputPropKey, newVal, child);
+      },
+      { immediate: true, deep: true }
+    );
+
+    // child value to parent value
+    child.$watch(watchInputPropKey, function (newVal) {
+      setData(inputDataKey, newVal, parent);
     });
   },
 };
