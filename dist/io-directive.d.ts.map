@@ -1,0 +1,1 @@
+{"version":3,"file":"io-directive.d.ts","sourceRoot":"","sources":["../src/io-directive.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAE,MAAM,KAAK,CAAC;AAC5B,OAAO,EAAE,gBAAgB,EAAE,MAAM,mBAAmB,CAAC;AAyBrD,eAAO,MAAM,cAAc;iBACZ,WAAW,WAAW,gBAAgB,SAAS,KAAK;CAiClE,CAAC"}

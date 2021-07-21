@@ -1,5 +1,7 @@
 import Vue from "vue";
 import { VueIoDirective } from "./io-directive";
+export { VueIoDirective } from "./io-directive";
+
 
 // @ts-ignore: Unreachable code error
 import App from "./app.vue";

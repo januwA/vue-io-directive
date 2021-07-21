@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>Child:</h2>
     <input v-model="name" />
     <input v-model="child.name" />
   </div>
@@ -7,7 +8,7 @@
 
 <script>
 export default {
-  name: "my-test",
+  name: "child",
   data() {
     return {
       name: "(unknow)",

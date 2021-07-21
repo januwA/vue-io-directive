@@ -1,17 +1,18 @@
 <template>
   <div>
+    <h2>Parent:</h2>
     <input v-model="name" />
     <input v-model="obj['aaa-aa sdsa']" />
     <hr />
-    <myTest v-io:name="name" v-io:child.name="obj['aaa-aa sdsa']"></myTest>
+    <Child v-io:name="name" v-io:child.name="obj['aaa-aa sdsa']"></Child>
   </div>
 </template>
 
 <script>
-import myTest from "./my-test";
+import Child from "./child";
 export default {
   name: "app",
-  components: { myTest },
+  components: { Child },
   data() {
     return {
       name: "",

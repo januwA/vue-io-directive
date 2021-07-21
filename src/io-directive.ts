@@ -27,6 +27,8 @@ function _getWatchInputPropKey(
 export const VueIoDirective = {
   inserted(el: HTMLElement, binding: DirectiveBinding, vnode: VNode) {
     const { modifiers, arg: inputPropKey, expression: inputDataKey } = binding;
+    if (!inputDataKey) return;
+    
     const { context: parent, componentInstance: child } = vnode;
     if (!inputPropKey) {
       console.error(`[v-io:??=${inputDataKey}]`);

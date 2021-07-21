@@ -1,24 +1,12 @@
-## vue-io-directive 在vue组件上双向绑定数据
+## vue-io-directive 
 
-灵感来自Angular:
-```html
-<my-test [(name)]="parentName" [(pwd)]="parentPwd"></my-test>
-```
+在 *vue 2* 组件上双向绑定多个数据，灵感来自Angular
 
-在Angular中当`name`属性发生变化会通知`nameChange`方法，在`v-io`中不存在,可以使用watch监听
-
-在vue中:
-```html
-<my-test v-io:name="parentName" v-io:pwd="parentPwd"></my-test>
-<my-test v-io:name="obj.parentName" v-io:pwd="obj.parentPwd"></my-test>
-
-<my-test v-io:child.name="parentName" v-io:child.pwd="parentPwd"></my-test>
-<my-test v-io:child.name="obj.parentName" v-io:child.pwd="obj.parentPwd"></my-test>
-```
+此库在*vue 3*中不可用，vue 3 可以在组件上[支持多个v-model](https://v3.cn.vuejs.org/guide/component-basics.html#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BD%BF%E7%94%A8-v-model)
 
 ## Install
 ```
-npm install vue-io-directive
+$ npm i vue-io-directive
 ```
 
 ## 使用
@@ -29,18 +17,15 @@ import { VueIoDirective } from "vue-io-directive";
 Vue.directive("io", VueIoDirective);
 ```
 
-注：
-- `v-io:name="arr[0]"`对于数组, 数据更新后ui也不会刷新,使用传统的emit
-- 可能引发安全问题
+## Demo
+```html
+<my-test v-io:name="parentName" v-io:pwd="parentPwd"></my-test>
+<my-test v-io:name="obj.parentName" v-io:pwd="obj.parentPwd"></my-test>
 
-## dev
-> $ npm start
-
-## build
-> $ npm run build
+<my-test v-io:child.name="parentName" v-io:child.pwd="parentPwd"></my-test>
+<my-test v-io:child.name="obj.parentName" v-io:child.pwd="obj.parentPwd"></my-test>
+```
 
 
-## See also:
-- https://webpack.js.org/
-- https://www.webpackjs.com/
-- https://cn.vuejs.org/v2/api/#vm-watch
+- `v-io:name="arr[0]"` 对于数组, 数据更新后ui也不会刷新,使用传统的emit
+- src目录下有`example`不懂可以看下

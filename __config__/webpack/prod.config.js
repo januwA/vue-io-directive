@@ -1,11 +1,7 @@
 process.env.NODE_ENV = "production";
 
-// 最小化生产
-const TerserJSPlugin = require("terser-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const shared = require("./shared");
 const path = require("path");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 
 module.exports = {
@@ -16,14 +12,11 @@ module.exports = {
     rules: shared.rules,
   },
   resolve: shared.resolve,
-  optimization: {
-    // 压缩js,css文件
-    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
-  },
-  plugins: [/*new CleanWebpackPlugin(),*/ new VueLoaderPlugin()],
+  plugins: [new VueLoaderPlugin()],
   output: {
     filename: "vue-io-directive.js",
-    path: path.resolve(__dirname, "../../build"),
+    path: path.resolve(__dirname, "../../dist"),
+    library: "VueIoDirective",
     libraryTarget: "umd",
     globalObject: "this",
   },
